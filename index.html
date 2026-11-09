@@ -119,6 +119,11 @@
     .key-list li::before { content:"→"; color:var(--teal); font-weight:700; flex-shrink:0; }
     .key-list li strong { color:var(--fg); }
     .dh-tag { font-size:0.75rem; color:var(--gold); background:var(--gold-lt); border-radius:6px; padding:0.4rem 0.65rem; line-height:1.4; border:1px solid rgba(155,110,0,0.18); }
+    .dh-scenario { background:var(--indigo-lt); border-left:3px solid var(--indigo); border-radius:6px; padding:0.65rem 0.8rem; font-size:0.82rem; color:var(--fg-mid); line-height:1.5; }
+    .dh-scenario p { margin:0 0 0.4rem; }
+    .dh-scenario p:last-child { margin-bottom:0; }
+    .dh-scenario strong { color:var(--fg); }
+    .dh-scenario .think { color:var(--indigo); }
     .dh-tag::before { content:"📚 DH use: "; font-weight:700; }
     .why-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr)); gap:0.75rem; margin-bottom:2rem; }
     .why-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; }
@@ -247,25 +252,49 @@
             </div>
             <div class="section-label"><h2>Arithmetic &amp; Variables</h2></div>
             <div class="cards">
-              <div class="card" data-exercise="1"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Arithmetic</span><span class="ex-badge badge-teal">Ex 01</span></div><div class="card-body"><p class="explain">Python as a calculator. The result appears immediately — good for testing ideas quickly.</p><div class="code-wrap"><pre><code class="language-python">3 + 2</code></pre></div><ul class="key-list"><li><strong>+  –  *  /  //  %  **</strong> — basic operators</li><li><strong>//</strong> integer division &nbsp;·&nbsp; <strong>%</strong> remainder &nbsp;·&nbsp; <strong>**</strong> power</li></ul><div class="dh-tag">Counting word frequencies, page numbers, years between dates</div></div></div>
-              <div class="card" data-exercise="2"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Variables &amp; Strings</span><span class="ex-badge badge-teal">Ex 02</span></div><div class="card-body"><p class="explain">A <strong>variable</strong> stores a value and gives it a name. <strong>Strings</strong> are text wrapped in quotes. <code>+</code> joins strings together.</p><div class="code-wrap"><pre><code class="language-python">first_name = "Juku"
+              <div class="card" data-exercise="1"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Arithmetic</span><span class="ex-badge badge-teal">Ex 01</span></div><div class="card-body"><p class="explain">Python as a calculator. The result appears immediately — good for testing ideas quickly.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher counts references to a person across digitised newspaper issues. Comparing totals can help describe how attention changes over time.</p>
+                <p><strong>Link to the code:</strong> The simple values in the example below show arithmetic that can also be used with archive counts.</p>
+                <p class="think"><strong>🤔 Think:</strong> Which newspapers were digitised, and whose stories may be missing from the count?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">3 + 2</code></pre></div><ul class="key-list"><li><strong>+  –  *  /  //  %  **</strong> — basic operators</li><li><strong>//</strong> integer division &nbsp;·&nbsp; <strong>%</strong> remainder &nbsp;·&nbsp; <strong>**</strong> power</li></ul><div class="dh-tag">Counting word frequencies, page numbers, years between dates</div></div></div>
+              <div class="card" data-exercise="2"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Variables &amp; Strings</span><span class="ex-badge badge-teal">Ex 02</span></div><div class="card-body"><p class="explain">A <strong>variable</strong> stores a value and gives it a name. <strong>Strings</strong> are text wrapped in quotes. <code>+</code> joins strings together.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A digital archive stores a letter’s author and title alongside its text. Keeping these details under clear names helps researchers identify and describe each source.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple name to demonstrate storing text and joining it into a message.</p>
+                <p class="think"><strong>🤔 Think:</strong> Who assigned the author’s name, and could that catalogue record reflect an uncertain attribution?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">first_name = "Juku"
 print("Hello, " + first_name)</code></pre></div><ul class="key-list"><li><strong>=</strong> assigns a value to a name</li><li><strong>print()</strong> displays the result</li><li>Strings use <strong>" "</strong> or <strong>' '</strong> quotes</li></ul><div class="dh-tag">Storing an author's name, a book title, a date, a source URL</div></div></div>
             </div>
             <div class="section-label"><h2>Loops</h2></div>
             <div class="cards">
-              <div class="card" data-exercise="3"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Loop over numbers</span><span class="ex-badge badge-coral">Ex 03</span></div><div class="card-body"><p class="explain"><code>range(5)</code> produces 0, 1, 2, 3, 4. The loop runs the indented block once per value.</p><div class="code-wrap"><pre><code class="language-python">for number in range(5):
+              <div class="card" data-exercise="3"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Loop over numbers</span><span class="ex-badge badge-coral">Ex 03</span></div><div class="card-body"><p class="explain"><code>range(5)</code> produces 0, 1, 2, 3, 4. The loop runs the indented block once per value.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A historian reviews a catalogue of digitised letters and needs to label each record in a small batch. Numbering items makes the set easier to track.</p>
+                <p><strong>Link to the code:</strong> The example below loops through five simple numbers to show the repeated step used for a batch of records.</p>
+                <p class="think"><strong>🤔 Think:</strong> Who decided which letters entered the catalogue, and what was left out?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">for number in range(5):
     print(number)</code></pre></div><ul class="key-list"><li><strong>for … in …:</strong> — the loop structure</li><li><strong>range(n)</strong> — integers from 0 to n–1</li><li>Indentation (4 spaces) marks the loop body</li></ul><div class="dh-tag">Numbering pages, iterating over years, processing rows in a dataset</div></div></div>
-              <div class="card" data-exercise="4"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Loop over characters</span><span class="ex-badge badge-coral">Ex 04</span></div><div class="card-body"><p class="explain">You can loop over any sequence — including the letters in a string, one at a time.</p><div class="code-wrap"><pre><code class="language-python">for letter in first_name:
+              <div class="card" data-exercise="4"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Loop over characters</span><span class="ex-badge badge-coral">Ex 04</span></div><div class="card-body"><p class="explain">You can loop over any sequence — including the letters in a string, one at a time.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher examines how a person’s name is written in a historical letter, character by character, to compare spelling across documents.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple name to show the same character-by-character process.</p>
+                <p class="think"><strong>🤔 Think:</strong> Could damaged pages, handwriting, or transcription choices change which letters appear?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">for letter in first_name:
     print(letter)</code></pre></div><ul class="key-list"><li>A string is a sequence of characters</li><li>Same <code>for … in …</code> pattern as Ex 03</li></ul><div class="dh-tag">Reading a text character by character — useful for encoding detection, transliteration</div></div></div>
             </div>
             <div class="section-label"><h2>Conditions</h2></div>
             <div class="cards">
-              <div class="card" data-exercise="5"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">if / else</span><span class="ex-badge badge-gold">Ex 05</span></div><div class="card-body"><p class="explain">Make a decision based on a condition. If the condition is true, run the first block; otherwise, run the else block.</p><div class="code-wrap"><pre><code class="language-python">age = 8
+              <div class="card" data-exercise="5"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">if / else</span><span class="ex-badge badge-gold">Ex 05</span></div><div class="card-body"><p class="explain">Make a decision based on a condition. If the condition is true, run the first block; otherwise, run the else block.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher selects newspaper articles published before a chosen date for a study of public debate. A clear rule makes the selection easier to explain.</p>
+                <p><strong>Link to the code:</strong> The example below compares a simple value with a rule to demonstrate how a selection decision is made.</p>
+                <p class="think"><strong>🤔 Think:</strong> What perspectives might be excluded by choosing only articles from that period?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">age = 8
 if age &lt;= 7:
     print("Free")
 else:
     print("Buy a ticket")</code></pre></div><ul class="key-list"><li><strong>&lt;=  &gt;=  ==  !=  &lt;  &gt;</strong> — comparison operators</li><li>== checks equality (not = which assigns)</li></ul><div class="dh-tag">Filtering sources by date, selecting texts from a certain period</div></div></div>
-              <div class="card" data-exercise="6"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Nested if / else</span><span class="ex-badge badge-gold">Ex 06</span></div><div class="card-body"><p class="explain">Conditions can nest inside each other, creating multiple decision paths.</p><div class="code-wrap"><pre><code class="language-python">age = 8
+              <div class="card" data-exercise="6"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Nested if / else</span><span class="ex-badge badge-gold">Ex 06</span></div><div class="card-body"><p class="explain">Conditions can nest inside each other, creating multiple decision paths.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> An archive groups records first by whether they have a date, then by which decade they belong to. This helps researchers organise sources with different levels of detail.</p>
+                <p><strong>Link to the code:</strong> The example below uses simple values and nested decisions to illustrate sorting records into more than one group.</p>
+                <p class="think"><strong>🤔 Think:</strong> What happens to records with missing or disputed dates under these categories?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">age = 8
 if age &lt;= 7:
     print("Free")
 else:
@@ -277,7 +306,11 @@ else:
             </div>
             <div class="section-label"><h2>String Slicing</h2></div>
             <div class="cards">
-              <div class="card" data-exercise="7"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Slicing a string</span><span class="ex-badge badge-indigo">Ex 07</span></div><div class="card-body"><p class="explain">Extract any part of a string using <code>[start:end:step]</code>. Indices start at 0; negative indices count from the end.</p><div class="code-wrap"><pre><code class="language-python">sentence = "racecarleveldeified"
+              <div class="card" data-exercise="7"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Slicing a string</span><span class="ex-badge badge-indigo">Ex 07</span></div><div class="card-body"><p class="explain">Extract any part of a string using <code>[start:end:step]</code>. Indices start at 0; negative indices count from the end.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A citation list contains short reference codes with dates or collection numbers in fixed positions. Researchers may inspect just one part to compare records.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple text value to show how a selected section can be taken from a longer string.</p>
+                <p class="think"><strong>🤔 Think:</strong> What context could be lost when a citation is reduced to only a few characters?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">sentence = "racecarleveldeified"
 print(sentence[0:3])    # "rac"
 print(sentence[:3])     # "rac"
 print(sentence[5:10])   # characters 5–9
@@ -286,7 +319,11 @@ print(sentence[-1])     # last character
 print(sentence[-4:])    # last 4 characters
 print(sentence[5:][0])  # chain slices
 print(sentence[::2])    # every 2nd character</code></pre></div><ul class="key-list"><li><strong>[start:end]</strong> — end is <em>not</em> included</li><li><strong>[-1]</strong> — last character; <strong>[-n:]</strong> — last n characters</li><li><strong>[::2]</strong> — every other character (step)</li></ul><div class="dh-tag">Extracting date components, file name prefixes, citation codes from structured text</div></div></div>
-              <div class="card" data-exercise="8"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Splitting into words</span><span class="ex-badge badge-indigo">Ex 08</span></div><div class="card-body"><p class="explain"><code>.split()</code> breaks a string into a list of words. Lists can be sliced just like strings.</p><div class="code-wrap"><pre><code class="language-python">sentence = "Alice went to the park..."
+              <div class="card" data-exercise="8"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Splitting into words</span><span class="ex-badge badge-indigo">Ex 08</span></div><div class="card-body"><p class="explain"><code>.split()</code> breaks a string into a list of words. Lists can be sliced just like strings.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher studies a sentence from a novel or letter and wants to examine its words one by one. Splitting text can make patterns easier to inspect.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple sentence to demonstrate separating words and selecting parts of the list.</p>
+                <p class="think"><strong>🤔 Think:</strong> How might punctuation, spelling variation, or transcription errors affect what counts as a word?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">sentence = "Alice went to the park..."
 words = sentence.split(" ")
 print(words)         # full list
 print(words[0])      # first word
@@ -298,10 +335,18 @@ print(words[-1][-1]) # last letter of last word</code></pre></div><ul class="key
             </div>
             <div class="section-label"><h2>List Comprehensions</h2></div>
             <div class="cards">
-              <div class="card" data-exercise="9"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Basic list comprehension</span><span class="ex-badge badge-teal">Ex 09</span></div><div class="card-body"><p class="explain">A compact way to loop over a list and collect results. This one just reproduces the words, but sets up the pattern.</p><div class="code-wrap"><pre><code class="language-python">sentence = "When Alice and her younger..."
+              <div class="card" data-exercise="9"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Basic list comprehension</span><span class="ex-badge badge-teal">Ex 09</span></div><div class="card-body"><p class="explain">A compact way to loop over a list and collect results. This one just reproduces the words, but sets up the pattern.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher gathers the words from a set of letters to create a list for later comparison. Keeping each word visible can help reveal repeated themes or names.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple sentence and collects its words into a new list.</p>
+                <p class="think"><strong>🤔 Think:</strong> Which words might be overrepresented because of the author, genre, or the texts selected?</p>
+              </div><div class="code-wrap"><pre><code class="language-python">sentence = "When Alice and her younger..."
 words = sentence.split(" ")
 print([word for word in words])</code></pre></div><ul class="key-list"><li>Structure: <strong>[expression for item in list]</strong></li><li>Returns a new list</li></ul><div class="dh-tag">The foundation of text processing — every word in a corpus becomes a data point</div></div></div>
-              <div class="card" data-exercise="10"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Comprehensions with transforms &amp; filters</span><span class="ex-badge badge-teal">Ex 10</span></div><div class="card-body"><p class="explain">List comprehensions can transform each item and optionally filter with <code>if</code>. Very powerful for text analysis.</p><div class="code-wrap"><pre><code class="language-python"># First letter of every word
+              <div class="card" data-exercise="10"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Comprehensions with transforms &amp; filters</span><span class="ex-badge badge-teal">Ex 10</span></div><div class="card-body"><p class="explain">List comprehensions can transform each item and optionally filter with <code>if</code>. Very powerful for text analysis.</p><div class="dh-scenario">
+                <p><strong>Humanities scenario:</strong> A researcher filters words from digitised newspaper articles to focus on longer terms or compare word lengths across a collection.</p>
+                <p><strong>Link to the code:</strong> The example below uses a simple list of words to demonstrate selecting and transforming items.</p>
+                <p class="think"><strong>🤔 Think:</strong> What important voices or meanings might a length-based filter leave out?</p>
+              </div><div class="code-wrap"><pre><code class="language-python"># First letter of every word
 [word[0] for word in words]
 # Length of every word
 [len(word) for word in words]
