@@ -501,6 +501,7 @@ WordCloud().generate_from_text(text)\
       if (event.key === UNLOCK_KEY) renderExerciseState();
     });
     function currentMode() { return sessionStorage.getItem(MODE_KEY) || "locked"; }
+    function isSignedIn() { return currentMode() === "student" || currentMode() === "teacher"; }
 
     function setMode(mode) { sessionStorage.setItem(MODE_KEY, mode); renderModeBadge(); renderExerciseState(); renderTeacherControls(); }
 
@@ -521,10 +522,24 @@ WordCloud().generate_from_text(text)\
         modeBadge.classList.add("locked"); modeBadge.textContent = "🔴 Locked";
       }
       logoutButton.style.display = mode === "locked" ? "none" : "inline-flex";
+      if (mode === "locked") {
+        lessonPage.classList.add("hidden");
+        homePage.classList.remove("hidden");
+      }
     }
 
     function showHome() { homePage.classList.remove("hidden"); lessonPage.classList.add("hidden"); }
-    function showLesson() { homePage.classList.add("hidden"); lessonPage.classList.remove("hidden"); renderExerciseState(); }
+    let shouldOpenLessonAfterSignIn = false;
+    function showLesson() {
+      if (!isSignedIn()) {
+        shouldOpenLessonAfterSignIn = true;
+        openModal();
+        return;
+      }
+      homePage.classList.add("hidden");
+      lessonPage.classList.remove("hidden");
+      renderExerciseState();
+    }
 
     function toggleTab(tabId) {
       document.querySelectorAll(".session-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tabId));
@@ -534,9 +549,9 @@ WordCloud().generate_from_text(text)\
     function applyExerciseState(card, num) {
       const mode = currentMode();
       const unlocked = getUnlockedExercises();
-      const isUnlocked = unlocked.includes(num);
       const isTeacher = mode === "teacher";
-      const cardLocked = !isTeacher && !isUnlocked;
+      const isUnlocked = isTeacher || (mode === "student" && unlocked.includes(num));
+      const cardLocked = !isUnlocked;
       card.classList.toggle("locked", cardLocked);
       card.classList.toggle("teacher-visible", isTeacher);
       const overlay = card.querySelector(".locked-overlay");
@@ -553,6 +568,7 @@ WordCloud().generate_from_text(text)\
     function renderTeacherControls() {
       const isTeacher = currentMode() === "teacher";
       teacherActions.classList.toggle("visible", isTeacher);
+      teacherActions.style.display = isTeacher ? "flex" : "none";
       document.querySelectorAll(".toggle-lock-btn").forEach(b => b.style.display = isTeacher ? "inline-flex" : "none");
     }
 
@@ -567,8 +583,15 @@ WordCloud().generate_from_text(text)\
     function handlePasswordSubmit() {
       const entered = passwordInput.value.trim();
       if (!entered) { passwordFeedback.textContent = "Please enter a password."; return; }
-      if (entered === TEACHER_PASSWORD) { setMode("teacher"); closeModal(); return; }
-      if (entered === STUDENT_PASSWORD) { setMode("student"); closeModal(); return; }
+      if (entered === TEACHER_PASSWORD || entered === STUDENT_PASSWORD) {
+        setMode(entered === TEACHER_PASSWORD ? "teacher" : "student");
+        closeModal();
+        if (shouldOpenLessonAfterSignIn) {
+          shouldOpenLessonAfterSignIn = false;
+          showLesson();
+        }
+        return;
+      }
       passwordFeedback.textContent = "Incorrect password. Try again.";
     }
 
