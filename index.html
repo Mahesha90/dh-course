@@ -482,23 +482,27 @@ WordCloud().generate_from_text(text)\
     function setUnlockedExercises(list) {
       saveUnlockedExercises(list);
       renderExerciseState();
-
-      if (currentMode() === "teacher") {
-        syncChannel.postMessage({
-          type: "unlock_update",
-          exercises: getUnlockedExercises()
-        });
-      }
+      const exercises = getUnlockedExercises();
+      console.log("sync sent:", exercises);
+      syncChannel.postMessage({
+        type: "unlock_update",
+        exercises
+      });
     }
 
     syncChannel.onmessage = (event) => {
-      if (event.data?.type === "unlock_update" && currentMode() === "student") {
+      if (event.data?.type === "unlock_update" && Array.isArray(event.data.exercises)) {
+        console.log("sync received:", event.data.exercises);
         saveUnlockedExercises(event.data.exercises);
         renderExerciseState();
       }
     };
     window.addEventListener("storage", (event) => {
-      if (event.key === UNLOCK_KEY) renderExerciseState();
+      if (event.key === UNLOCK_KEY) {
+        const exercises = getUnlockedExercises();
+        console.log("storage sync received:", exercises);
+        renderExerciseState();
+      }
     });
     function currentMode() { return sessionStorage.getItem(MODE_KEY) || "locked"; }
     function isSignedIn() { return currentMode() === "student" || currentMode() === "teacher"; }
