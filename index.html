@@ -102,6 +102,7 @@
     .card.locked { filter:blur(0.55px); opacity:0.95; }
     .card.locked .card-body { pointer-events:none; }
     .card-head { display:flex; align-items:center; justify-content:space-between; padding:0.65rem 1rem; border-bottom:1px solid var(--border); gap:0.5rem; }
+    .card.teacher-visible .card-head { padding-right:7rem; }
     .card-title { font-size:0.82rem; font-weight:700; color:var(--fg); }
     .ex-badge { font-size:0.7rem; font-weight:600; letter-spacing:0.05em; border-radius:999px; padding:0.15rem 0.55rem; white-space:nowrap; flex-shrink:0; }
     .badge-teal { background:var(--teal-lt); color:var(--teal); }
@@ -379,9 +380,9 @@ wc = WordCloud().generate("rain rain brings hope hope")
 img = wc.to_image()
 img.show()</code></pre></div><ul class="key-list"><li><strong>pip install</strong> — downloads a library (once per session)</li><li><strong>from … import …</strong> — brings in just the class you need</li><li><strong>.generate(text)</strong> — builds the cloud from a string</li><li><strong>.to_image()</strong> — converts to a viewable image</li></ul><div class="dh-tag">First step toward visualising any text corpus — speeches, novels, newspaper archives</div></div></div>
               <div class="card" data-exercise="12"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Load text from the web</span><span class="ex-badge badge-teal">Ex 12</span></div><div class="card-body"><p class="explain">Fetch any public text file directly from a URL. Project Gutenberg, government archives, and digitised newspapers are all accessible this way.</p><div class="code-wrap"><pre><code class="language-python">import urllib.request
-text = urllib.request.urlopen(
-    "URL of your online text file"
-).read().decode("utf-8")
+text_url = "PASTE_YOUR_GOOGLE_DOC_EXPORT_URL_HERE"
+
+text = urllib.request.urlopen(text_url).read().decode("utf-8")
 text[:50]   # preview first 50 characters</code></pre></div><ul class="key-list"><li><strong>urllib.request</strong> — built-in Python web fetching</li><li><strong>.read()</strong> downloads as bytes; <strong>.decode("utf-8")</strong> converts to text</li><li><strong>text[:50]</strong> — preview without printing everything</li></ul><div class="dh-tag">Load historical texts, digitised books, or any corpus hosted online without downloading files</div></div></div>
             </div>
             <div class="cards">
@@ -395,19 +396,18 @@ text[:50]   # preview first 50 characters</code></pre></div><ul class="key-list"
             <div class="cards">
               <div class="card" data-exercise="15"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Load an image from Drive</span><span class="ex-badge badge-coral">Ex 15</span></div><div class="card-body"><p class="explain">Download an image from Google Drive and display it. The File ID comes from the sharing link of your Drive file.</p><div class="code-wrap"><pre><code class="language-python">from PIL import Image
 import urllib.request
-img = urllib.request.urlretrieve(
-    "https://drive.google.com/uc?export=download&id=FILE_ID",
-    "image1.png"
-)
+image_url = "PASTE_YOUR_DIRECT_DRIVE_IMAGE_URL_HERE"
+
+img = urllib.request.urlretrieve(image_url, "image1.png")
 Image.open("image1.png")</code></pre></div><ul class="key-list"><li><strong>PIL / Pillow</strong> — Python image library</li><li><strong>urlretrieve(url, filename)</strong> — downloads and saves locally</li><li>Replace <strong>FILE_ID</strong> with your Drive file's ID</li></ul><div class="dh-tag">Load historical maps, portraits, or silhouettes to use as word cloud shapes</div></div></div>
               <div class="card" data-exercise="16"><button class="toggle-lock-btn" type="button">🔓 Unlock</button><div class="card-head"><span class="card-title">Word cloud shaped by an image</span><span class="ex-badge badge-coral">Ex 16</span></div><div class="card-body"><p class="explain">Use any black-and-white image as a <strong>mask</strong> — the word cloud fills the white areas of the shape.</p><div class="code-wrap"><pre><code class="language-python">import numpy as np
+text_url = "PASTE_YOUR_GOOGLE_DOC_EXPORT_URL_HERE"
+image_url = "PASTE_YOUR_DIRECT_DRIVE_IMAGE_URL_HERE"
+
 text = urllib.request.urlopen(
-    "https://drive.google.com/uc?export=download&id=FILE_ID"
+    text_url
 ).read().decode("utf-8")
-img = urllib.request.urlretrieve(
-    "https://drive.google.com/uc?export=download&id=FILE_ID",
-    "image1.png"
-)
+img = urllib.request.urlretrieve(image_url, "image1.png")
 WordCloud(
     mask=np.array(Image.open("image1.png")),
     background_color="white"
@@ -525,6 +525,7 @@ WordCloud().generate_from_text(text)\
       } else {
         modeBadge.classList.add("locked"); modeBadge.textContent = "🔴 Locked";
       }
+      lockButton.style.display = mode === "locked" ? "inline-flex" : "none";
       logoutButton.style.display = mode === "locked" ? "none" : "inline-flex";
       if (mode === "locked") {
         lessonPage.classList.add("hidden");
@@ -563,7 +564,7 @@ WordCloud().generate_from_text(text)\
         if (!overlay) { const o = document.createElement("div"); o.className="locked-overlay"; o.innerHTML='<span class="lock-overlay-icon">🔒</span><span>Locked by instructor</span>'; card.appendChild(o); }
       } else if (overlay) { overlay.remove(); }
       const btn = card.querySelector(".toggle-lock-btn");
-      if (btn) btn.textContent = isUnlocked ? "🔒 Lock" : "🔓 Unlock";
+      if (btn) btn.textContent = unlocked.includes(num) ? "🔒 Lock" : "🔓 Unlock";
       card.style.display = "";
     }
 
